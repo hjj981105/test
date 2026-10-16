@@ -1,0 +1,18 @@
+name: CI                          # 工作流名称，显示在 Actions 页面
+
+on:                               # 触发条件
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:              # 允许在网页上手动点按钮运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest        # 用哪台机器
+    steps:
+      - uses: actions/checkout@v4        # 把仓库代码拉下来
+      - uses: actions/setup-node@v4      # 装 Node 环境
+        with:
+          node-version: '22'
+      - run: npm ci                      # 执行你自己的命令
+      - run: npm test
